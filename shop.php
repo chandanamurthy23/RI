@@ -30,7 +30,7 @@ if ($GLOBALS['db_connected']) {
     }
 }
 
-if (empty($products)) {
+if (!$GLOBALS['db_connected']) {
     $products = get_mock_products();
     if (!empty($search_query)) {
         $products = array_filter($products, function($item) use ($search_query) {
@@ -108,12 +108,16 @@ if (empty($products)) {
                             <?= sanitize($product['short_description'] ?? '') ?>
                         </p>
                         
-                        <form action="cart.php" method="POST" class="add-cart-form">
+                        <form action="cart.php" method="POST" class="add-cart-form" style="display: flex; gap: 8px; margin-top: auto;">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="add-cart-btn-full">
-                                ADD TO CART
+                            <div style="display: flex; border: 1px solid #dcdcdc; border-radius: 4px; overflow: hidden; height: 40px; width: 100px;">
+                                <button type="button" onclick="this.nextElementSibling.stepDown()" style="background: #f8f9fa; border: none; padding: 0 12px; cursor: pointer; color: #555; transition: 0.2s; font-weight: bold;">-</button>
+                                <input type="number" name="quantity" value="1" min="1" style="width: 100%; border: none; text-align: center; outline: none; font-weight: 600; color: #333; -moz-appearance: textfield;">
+                                <button type="button" onclick="this.previousElementSibling.stepUp()" style="background: #f8f9fa; border: none; padding: 0 12px; cursor: pointer; color: #555; transition: 0.2s; font-weight: bold;">+</button>
+                            </div>
+                            <button type="submit" class="add-cart-btn-full" style="flex: 1; height: 40px; padding: 0; margin-top: 0; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <i class="fas fa-cart-plus"></i> ADD
                             </button>
                         </form>
                     </div>

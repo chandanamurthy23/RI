@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/includes/helpers.php';
 
 $cart_items = $_SESSION['cart'] ?? [];
 if (empty($cart_items)) {
@@ -64,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
+
+require_once __DIR__ . '/includes/header.php';
 ?>
 
 <div class="page-banner">

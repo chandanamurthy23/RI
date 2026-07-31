@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/includes/helpers.php';
 
 // Handle Cart Actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -63,9 +64,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['success_msg'] = "Cart cleared.";
     }
 
-    header("Location: cart.php");
+    // Preserve search params if adding from shop.php
+    $redirect_url = 'cart.php';
+    if ($action === 'add' && isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'shop.php') !== false) {
+        $redirect_url = $_SERVER['HTTP_REFERER'];
+    }
+    header("Location: " . $redirect_url);
     exit;
 }
+
+require_once __DIR__ . '/includes/header.php';
 
 $cart_items = $_SESSION['cart'] ?? [];
 $subtotal = get_cart_total();

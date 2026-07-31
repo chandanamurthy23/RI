@@ -58,6 +58,27 @@ if (empty($related_products) && $product) {
         }
     }
 }
+
+$has_3d_images = false;
+if ($product['id'] == 11) {
+    $has_3d_images = true;
+    $front_img = 'assets/images/products/health-mix-powder-400g-front.jpg';
+    $back_img = 'assets/images/products/health-mix-powder-400g-back.jpg';
+    $side1_img = 'assets/images/products/health-mix-powder-400g-Side 1.jpg';
+    $side2_img = 'assets/images/products/health-mix-powder-400g-side2.jpg';
+} elseif ($product['id'] == 1) { // 800g Product
+    $has_3d_images = true;
+    $front_img = 'assets/images/products/Health mix powder.jpg';
+    $back_img = 'assets/images/products/health-mix-powder-back-800g.jpg';
+    $side1_img = 'assets/images/products/health-mix-powder-side1-800g.jpg';
+    $side2_img = 'assets/images/products/health-mix-powder-side2-800g.jpg';
+} elseif ($product['id'] == 2) { // Baby Ragi Sari Powder
+    $has_3d_images = true;
+    $front_img = 'assets/images/products/baby ragi sari powder.jpg';
+    $back_img = 'assets/images/products/baby ragi sari powder back.jpg';
+    $side1_img = 'assets/images/products/baby ragi sari powder side 1.jpg';
+    $side2_img = 'assets/images/products/Baby ragi sari powder side 2.jpg';
+}
 ?>
 
 <div class="container" style="margin-top: 40px; margin-bottom: 60px;">
@@ -69,8 +90,49 @@ if (empty($related_products) && $product) {
     <!-- Product Detail Layout -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; background: #fff; padding: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
         <!-- Product Image -->
-        <div>
-            <img src="<?= sanitize($product['image']) ?>" alt="<?= sanitize($product['name']) ?>" style="width: 100%; border-radius: var(--radius-md); max-height: 440px; object-fit: cover;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <?php if (isset($has_3d_images) && $has_3d_images): ?>
+                <!-- 3D Interactive Box Viewer -->
+                <div class="scene" style="width: 360px; height: 360px; perspective: 1200px; margin: 0 auto; user-select: none; padding-top: 40px;">
+                    <div class="cube" id="productCube" style="width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transform: translateZ(-150px) rotateX(-15deg) rotateY(-35deg);">
+                        <!-- Front Face -->
+                        <div class="cube__face" style="position: absolute; width: 300px; height: 360px; left: 30px; background: #fff; border-radius: 4px; box-shadow: inset 0 0 15px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.2); transform: rotateY(0deg) translateZ(80px); overflow: hidden;">
+                            <img src="<?= $front_img ?>" alt="Front" style="width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; transform: scale(1.18);">
+                        </div>
+                        <!-- Right Face -->
+                        <div class="cube__face" style="position: absolute; width: 160px; height: 360px; left: 100px; background: #e8e8e8; border-radius: 4px; box-shadow: inset 0 0 25px rgba(0,0,0,0.1), 0 0 1px rgba(0,0,0,0.2); transform: rotateY(90deg) translateZ(150px); overflow: hidden;">
+                            <img src="<?= $side1_img ?>" alt="Side 1" style="width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; transform: scale(1.18);">
+                        </div>
+                        <!-- Back Face -->
+                        <div class="cube__face" style="position: absolute; width: 300px; height: 360px; left: 30px; background: #fff; border-radius: 4px; box-shadow: inset 0 0 15px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.2); transform: rotateY(180deg) translateZ(80px); overflow: hidden;">
+                            <img src="<?= $back_img ?>" alt="Back" style="width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; transform: scale(1.18);">
+                        </div>
+                        <!-- Left Face -->
+                        <div class="cube__face" style="position: absolute; width: 160px; height: 360px; left: 100px; background: #e8e8e8; border-radius: 4px; box-shadow: inset 0 0 25px rgba(0,0,0,0.1), 0 0 1px rgba(0,0,0,0.2); transform: rotateY(-90deg) translateZ(150px); overflow: hidden;">
+                            <img src="<?= $side2_img ?>" alt="Side 2" style="width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; transform: scale(1.18);">
+                        </div>
+                        <!-- Top Face -->
+                        <div class="cube__face" style="position: absolute; width: 300px; height: 160px; left: 30px; top: 100px; background: #fdfdfd; border: 1px solid #ddd; transform: rotateX(90deg) translateZ(180px);"></div>
+                        <!-- Bottom Face -->
+                        <div class="cube__face" style="position: absolute; width: 300px; height: 160px; left: 30px; top: 100px; background: #fdfdfd; border: 1px solid #ddd; transform: rotateX(-90deg) translateZ(180px); box-shadow: 0 0 30px rgba(0,0,0,0.4);"></div>
+                    </div>
+                </div>
+
+                <script>
+                    const cube = document.getElementById('productCube');
+                    let currentAngleY = -35; // Start at an angle
+
+                    cube.style.cursor = 'pointer';
+                    cube.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
+                    cube.addEventListener('click', () => {
+                        currentAngleY -= 90; // Turn to the next side
+                        cube.style.transform = `translateZ(-150px) rotateX(-15deg) rotateY(${currentAngleY}deg)`;
+                    });
+                </script>
+            <?php else: ?>
+                <img src="<?= sanitize($product['image']) ?>" alt="<?= sanitize($product['name']) ?>" style="width: 100%; border-radius: var(--radius-md); max-height: 440px; object-fit: cover;">
+            <?php endif; ?>
         </div>
 
         <!-- Product Info & Actions -->
@@ -159,12 +221,16 @@ if (empty($related_products) && $product) {
                             <?= sanitize($rel_product['short_description'] ?? '') ?>
                         </p>
                         
-                        <form action="cart.php" method="POST" class="add-cart-form">
+                        <form action="cart.php" method="POST" class="add-cart-form" style="display: flex; gap: 8px; margin-top: auto;">
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="product_id" value="<?= $rel_product['id'] ?>">
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="add-cart-btn-full">
-                                ADD TO CART
+                            <div style="display: flex; border: 1px solid #dcdcdc; border-radius: 4px; overflow: hidden; height: 40px; width: 100px;">
+                                <button type="button" onclick="this.nextElementSibling.stepDown()" style="background: #f8f9fa; border: none; padding: 0 12px; cursor: pointer; color: #555; transition: 0.2s; font-weight: bold;">-</button>
+                                <input type="number" name="quantity" value="1" min="1" style="width: 100%; border: none; text-align: center; outline: none; font-weight: 600; color: #333; -moz-appearance: textfield;">
+                                <button type="button" onclick="this.previousElementSibling.stepUp()" style="background: #f8f9fa; border: none; padding: 0 12px; cursor: pointer; color: #555; transition: 0.2s; font-weight: bold;">+</button>
+                            </div>
+                            <button type="submit" class="add-cart-btn-full" style="flex: 1; height: 40px; padding: 0; margin-top: 0; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <i class="fas fa-cart-plus"></i> ADD
                             </button>
                         </form>
                     </div>

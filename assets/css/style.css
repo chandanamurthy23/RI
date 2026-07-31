@@ -2,13 +2,14 @@
    RM's Sampoorna Food Products - Rithamaya Official Theme CSS
    ========================================================================== */
 
+@import url('about.css');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary-color: #1b4332;
-  --primary-hover: #2d6a4f;
-  --secondary-color: #d4a373;
-  --accent-color: #e76f51;
+  --primary-color: #1F5915;
+  --primary-hover: #16400f;
+  --secondary-color: #7BC043;
+  --accent-color: #7c4e29;
   --bg-light: #fdfbf7;
   --bg-card: #ffffff;
   --text-main: #2b2d42;
@@ -61,12 +62,16 @@ img {
   padding: 0 20px;
 }
 
+.brand-logo-img {
+  /* removed duplicate */
+}
+
 /* ==========================================================================
    Header & Navigation
    ========================================================================== */
 /* Single Moving Announcement Ticker Bar */
 .top-ticker-bar {
-  background: linear-gradient(90deg, #1b4332 0%, #2d6a4f 50%, #112a1f 100%);
+  background: linear-gradient(90deg, #1F5915 0%, #308021 50%, #16400f 100%);
   color: #ffffff;
   padding: 8px 0;
   overflow: hidden;
@@ -113,14 +118,13 @@ img {
 }
 
 .main-header {
-  background: rgba(253, 251, 247, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   position: sticky;
   top: 0;
   z-index: 1000;
   box-shadow: 0 8px 32px 0 rgba(27, 67, 50, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   transition: all 0.4s ease;
 }
 
@@ -137,9 +141,9 @@ img {
 }
 
 .brand-logo-img {
-  height: 58px;
-  width: auto;
-  max-width: 180px;
+  height: auto;
+  max-height: 120px;
+  max-width: 350px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -156,16 +160,24 @@ img {
 }
 
 .nav-link {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: #1B4332;
   position: relative;
   padding: 8px 4px;
   transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-icon {
+  color: #cda873; /* Gold/Orange matching logo */
+  font-size: 1.1rem;
 }
 
 .nav-link:hover, .nav-link.active {
-  color: var(--primary-color);
+  color: #1B4332;
 }
 
 .nav-link::after {
@@ -175,8 +187,8 @@ img {
   left: 50%;
   transform: translateX(-50%);
   width: 0%;
-  height: 2.5px;
-  background: var(--secondary-color);
+  height: 3px;
+  background: #639a40; /* Bright green underline from mockup */
   transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border-radius: 4px;
 }
@@ -194,18 +206,18 @@ img {
 .search-form {
   display: flex;
   align-items: center;
-  background: rgba(27, 67, 50, 0.04);
+  background: #f5f5f5;
   border-radius: 50px;
   padding: 8px 16px;
   border: 1px solid rgba(27, 67, 50, 0.05);
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+  box-shadow: none;
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .search-form:focus-within {
   background: #ffffff;
   border-color: rgba(27, 67, 50, 0.2);
-  box-shadow: 0 6px 20px rgba(27, 67, 50, 0.08);
+  box-shadow: 0 6px 15px rgba(27, 67, 50, 0.08);
   transform: scale(1.02);
 }
 
@@ -214,9 +226,16 @@ img {
   background: transparent;
   outline: none;
   padding: 4px 8px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  color: #333333;
+  font-weight: 500;
   width: 180px;
   transition: width 0.4s ease;
+}
+
+.search-input::placeholder {
+  color: #888888;
+  font-weight: 400;
 }
 
 .search-form:focus-within .search-input {
@@ -227,8 +246,8 @@ img {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--primary-color);
-  font-size: 1.05rem;
+  color: #1B4332;
+  font-size: 1.1rem;
   transition: transform 0.3s ease;
 }
 .search-btn:hover {
@@ -238,32 +257,34 @@ img {
 .action-btn {
   position: relative;
   background: #ffffff;
-  border: 1px solid rgba(27, 67, 50, 0.06);
+  border: none;
   width: 44px;
   height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-color);
   font-size: 1.15rem;
+  color: #1B4332;
   box-shadow: 0 4px 12px rgba(27, 67, 50, 0.05);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: #ffffff;
+  -webkit-text-fill-color: initial;
+  filter: none;
 }
 
 .action-btn:hover {
-  background: var(--primary-color);
+  background: #1B4332;
   color: #ffffff;
-  border-color: var(--primary-color);
-  box-shadow: 0 8px 24px rgba(27, 67, 50, 0.15);
   transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(27, 67, 50, 0.15);
 }
 
 .badge-count {
   position: absolute;
   top: -2px;
   right: -2px;
-  background: var(--accent-color);
+  background: #8d6e63;
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -273,7 +294,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #fff;
+  border: none;
+  -webkit-text-fill-color: initial;
 }
 
 .mobile-toggle {
@@ -620,10 +642,10 @@ img {
 
 .product-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: flex-start;
   margin-bottom: 6px;
-  gap: 10px;
+  gap: 4px;
 }
 
 .product-title {
@@ -1059,6 +1081,18 @@ img {
   .product-img-wrapper { height: 160px; }
   
   .cart-summary-card { padding: 20px; }
+  
+  /* Fix squished add-to-cart buttons on mobile */
+  .add-cart-form {
+      flex-direction: column !important;
+      gap: 6px !important;
+  }
+  .add-cart-form > div {
+      width: 100% !important;
+  }
+  .add-cart-btn-full {
+      width: 100% !important;
+  }
 }
 
 @media (max-width: 480px) {

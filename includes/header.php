@@ -46,7 +46,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <div class="header-wrapper">
                 <!-- Brand Logo -->
                 <a href="index.php" class="logo">
-                    <img src="assets/images/logo.png" alt="RM Sampoorna Logo" class="brand-logo-img">
+                    <img src="assets/images/logo.png?v=<?= time() ?>" alt="RM Sampoorna Logo" class="brand-logo-img">
                 </a>
 
                 <!-- Navigation Links -->
@@ -92,25 +92,25 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <!-- Flash Message Container -->
     <?php if (isset($_SESSION['success_msg']) || isset($_SESSION['error_msg']) || !$GLOBALS['db_connected']): ?>
-    <div class="container" style="margin-top: 20px;">
+    <div class="container flash-message-wrapper">
         <?php if (isset($_SESSION['success_msg'])): ?>
-            <div class="alert alert-success">
+            <div class="alert alert-success" style="margin-top: 20px;">
                 <span><i class="fas fa-check-circle"></i> <?= $_SESSION['success_msg']; ?></span>
-                <i class="fas fa-times" style="cursor:pointer;" onclick="this.parentElement.remove();"></i>
+                <i class="fas fa-times" style="cursor:pointer;" onclick="this.closest('.flash-message-wrapper').remove();"></i>
             </div>
             <?php unset($_SESSION['success_msg']); ?>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['error_msg'])): ?>
-            <div class="alert alert-danger">
+            <div class="alert alert-danger" style="margin-top: 20px;">
                 <span><i class="fas fa-exclamation-circle"></i> <?= $_SESSION['error_msg']; ?></span>
-                <i class="fas fa-times" style="cursor:pointer;" onclick="this.parentElement.remove();"></i>
+                <i class="fas fa-times" style="cursor:pointer;" onclick="this.closest('.flash-message-wrapper').remove();"></i>
             </div>
             <?php unset($_SESSION['error_msg']); ?>
         <?php endif; ?>
 
         <?php if (!$GLOBALS['db_connected']): ?>
-            <div class="alert alert-info">
+            <div class="alert alert-info" style="margin-top: 20px;">
                 <span><i class="fas fa-info-circle"></i> <strong>Note:</strong> Running in fallback preview mode. To connect live MySQL, start XAMPP MySQL and import <code>database.sql</code> into database <code>rithamaya_db</code>.</span>
             </div>
         <?php endif; ?>

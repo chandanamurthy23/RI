@@ -1,10 +1,7 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
-?>
-<style>
-  .site-footer { margin-top: 0 !important; }
-</style>
-<?php
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/includes/helpers.php';
+
 $success = false;
 $error = '';
 
@@ -37,7 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Please fill in all required fields (Name, Email, Message).";
     }
 }
+
+require_once __DIR__ . '/includes/header.php';
 ?>
+<style>
+  .site-footer { margin-top: 0 !important; }
+</style>
 
 <div class="organic-backdrop-section">
     <div class="spice-wheat-backdrop"></div>
